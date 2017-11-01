@@ -12,17 +12,17 @@ var image = Parse.Object.extend("Post");
       success: function(results) {
         // If the query is successful, store each image URL in an array of image URL's
         imageURLs = [];
-        for (var i = 0; i < results.length; i++) { 
+        for (var i = 0; i < results.length; i++) {
           var object = results[i];
           imageURLs.push(object.get('Image'));
         }
         // If the imageURLs array has items in it, set the src of an IMG element to the first URL in the array
         for(var j = 0; j < imageURLs.length; j++){
-            $('#imgs').append("<img src='" + imageURLs[j].url() + "'/><br>");                 
+            $('#imgs').append("<img src='" + imageURLs[j].url() + "'/><br>");
         }
       },
       error: function(error) {
-     
+
         alert("Error: " + error.code + " " + error.message);
       }
     });
@@ -37,7 +37,6 @@ var image = Parse.Object.extend("Post");
 
 
 </div>
-jhgvkjbkjk
 
 
 
