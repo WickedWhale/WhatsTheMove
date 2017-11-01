@@ -16,7 +16,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render())
 
@@ -45,11 +44,17 @@ class test(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('photoTest.html')
         self.response.write(template.render())
 
+class dashboard(webapp2.RequestHandler):
+    def get(self):
+        template = JINJA_ENVIRONMENT.get_template('dashboard.html')
+        self.response.write(template.render())
+
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/SignUP', SignUP),
     ('/Login', Login),
     ('/User', UserPage),
     ('/Post', Post),
-    ('/test', test)
+    ('/test', test),
+    ('/UserDashboard', dashboard)
 ], debug=True)

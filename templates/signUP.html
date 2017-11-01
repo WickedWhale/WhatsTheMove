@@ -6,32 +6,26 @@
   <center>
 <script type="text/javascript">
 
-  Parse.initialize("D063W83WpUP2UgH2dwbz8Xukxc17ZXKFbRfWCCsO", "EwPaVNpCQP4RahQTRKlWra9LTnojPJl5rcK3HcS1");
-
-  
-  function signup(){
-    event.preventDefault();
-
-    var username = document.getElementById("username").value;
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-    var user = new Parse.User();
-      user.set("username", username);
-      user.set("password", password);
-      user.set("email", email);
-
-      user.signUp(null, {
-
-        success: function(user) {
-          location.assign("/Login");
-        },
-        error: function(user, error) {
-          // Show the error message somewhere and let the user try again.
-          alert("Opps!!, there was an error: " + error.code + " " + error.message);
+  function handleSignUp() {
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      // Sign in with email and pass.
+      // [START createwithemail]
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
         }
-
+        console.log(error);
+        // [END_EXCLUDE]
       });
-  }
+      // [END createwithemail]
+    }
 
 </script>
 
@@ -42,14 +36,8 @@
 
     <br><br>
     <center>
-  <form onsubmit="signup()">
+  <form onsubmit="handleSignUp()">
 
-<br>
-  <div class="form-group">
-    <label for="username"></label>
-    <input id = "username" type="text" placeholder = "Username" class="form-control" style="width: 300px;" name = "username">
-  </div>
-<br>
   <div class="form-group">
     <label for="email"></label>
     <input id = "email" type="email" placeholder = "E-mail Address" class="form-control" style="width: 300px;" name = "email">

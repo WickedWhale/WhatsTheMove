@@ -11,6 +11,25 @@
 
     <title>What's The Move?</title>
 
+    <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+    
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBsu0qCePbj0YkQgbQx3_GJ3FMmMolr8JQ",
+        authDomain: "whatsthemove-foobar.firebaseapp.com",
+        databaseURL: "https://whatsthemove-foobar.firebaseio.com",
+        projectId: "whatsthemove-foobar",
+        storageBucket: "whatsthemove-foobar.appspot.com",
+        messagingSenderId: "547969024379"
+      };
+      firebase.initializeApp(config);
+    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -63,7 +82,7 @@
                         <a href="#organization">Events</a>
                     </li>
                     <li>
-                        <a href="#services">Post an Event</a>
+                        <a href="Post.html">Post an Event</a>
                     </li>
                     <li>
                         <a href="#contact">Contact</a>

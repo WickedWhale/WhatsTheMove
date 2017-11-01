@@ -8,25 +8,35 @@
 
   <script type="text/javascript">
        
-       Parse.initialize("D063W83WpUP2UgH2dwbz8Xukxc17ZXKFbRfWCCsO", "EwPaVNpCQP4RahQTRKlWra9LTnojPJl5rcK3HcS1");
-  
-        function login(){
-          event.preventDefault();
-          var username = document.getElementById("username").value;
-          var password = document.getElementById("password").value;
+    function handleLogin() {
+      if (firebase.auth().currentUser) {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      } else {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
 
-            Parse.User.logIn(username, password, {
-              success: function(user) {
-                location.assign("http://www.netflix.com/browse");
-              },
-              error: function(user, error) {
-                // Show the error message somewhere and let the user try again.
-                alert("Error: " + error.code + " " + error.message);
-              }
-
-            }); 
-            
-        }
+        // Sign in with email and pass.
+        // [START authwithemail]
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/wrong-password') {
+            alert('Wrong password.');
+          } else {
+            alert(errorMessage);
+          }
+          console.log(error);
+          document.getElementById('form').disabled = false;
+          // [END_EXCLUDE]
+        });
+        // [END authwithemail]
+      }
+      document.getElementById('form').disabled = true;
+    }
 
   </script>
 
@@ -41,12 +51,12 @@
     <h1 class = "login-text" >LOGIN</h1>
 
     <br><br>
-  <form onsubmit="login()">
+  <form id = "form" onsubmit="login()">
 
   <center>
       <div class="form-group">
         <br>
-        <input id = "username" type="text" placeholder = "Username" class="form-control" style="width: 300px;">
+        <input id = "email" type="text" placeholder = "Email" class="form-control" style="width: 300px;">
       </div>
 
       <div class="form-group">
