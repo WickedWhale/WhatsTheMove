@@ -1,74 +1,49 @@
-_{% extends "base.html" %}
-{% block body %}
+
 
 <br>
 <br>
-
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-messaging.js"></script>
 
 <script>
+// Initialize Firebase
+var config = {
+apiKey: "AIzaSyBm7bfqhAP9CMWuzOBaLzv1W9XYfYCW9qg",
+authDomain: "tesr-d681a.firebaseapp.com",
+databaseURL: "https://tesr-d681a.firebaseio.com",
+projectId: "tesr-d681a",
+storageBucket: "tesr-d681a.appspot.com",
+messagingSenderId: "531957424080"
+};
+firebase.initializeApp(config);
+</script>
+<script>
 
-Parse.initialize("D063W83WpUP2UgH2dwbz8Xukxc17ZXKFbRfWCCsO", "EwPaVNpCQP4RahQTRKlWra9LTnojPJl5rcK3HcS1");
+
 
 function post(){
-	event.preventDefault();
 
 	//here is where all of the stuff for the parties are
 	var event_name = document.getElementById("name").value;
 	var host_name = document.getElementById("host_name").value;
-	var date = document.getElementById("date").value;
-	var location = document.getElementById("location").value;
+	var event_date = document.getElementById("date").value;
+	var event_location = document.getElementById("location").value;
 	var image = document.getElementById("upload").files[0];
 
-	var fileUploadControl = $("#upload")[0];
+	var ad = {
+     host: host_name,
+     name: event_name,
+		 date: event_date,
+		 location: event_location,
+     flyer: image
+   };
 
-	if (fileUploadControl.files.length > 0) {
-
-    	var file = fileUploadControl.files[0];
-    	var name = "photo.png";
-    	var parseFile = new Parse.File(name, file);
-
-
-	    parseFile.save().then(function(parseFile) {
-
-	    	var url = parseFile.url();
-	    		//start with the subclass
-			var Post = Parse.Object.extend("Post");
-			Parse.Object.registerSubclass('Post', Post);
-
-			//create an instance for the subclass
-			var party = new Post();
-
-			party.set("Name", event_name);
-			party.set("HostName", host_name);
-			party.set("Date", date);
-			party.set("Location", location);
-			party.set("Image", parseFile);
-
-			party.save(null, {
-
-				success: function (party){
-
-					alert("your party has been successfully added to the base");
-
-				},
-
-				error: function (party, error){
-
-					alert("hi    "+error.message);
-				}
-			});
-
-	    }, function(error) {
-	
-	    		alert("Error: " + error.code + " " + error.message);
-
-	      });
-  	};
-
-
-	
-
-
+	var newKey = firebase.database().ref().child('events').push().key;
+	var updates = {};
+  updates['/posts/' + newKey] = ad;
+	return firebase.database().ref().update(updates);
 }
 
 </script>
@@ -114,7 +89,7 @@ function post(){
 	<br>
 
 	<input style="width: 300px;" class="btn btn-default" type="submit"></input>
-	
+
 
 </form>
 
@@ -127,10 +102,3 @@ function post(){
 <br>
 <br>
 </div>
-
-
-
-
-
-
-{% endblock %}
