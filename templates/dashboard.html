@@ -1,43 +1,42 @@
 {% extends "base.html" %}
 {% block body %}
 
-
-
-<script>
-function insRow(id) {
-  for(var i = 0; i < 15; i++) {
-    var x = document.getElementById(id);
-    x.innerHTML += "<img src= '../images/guy.jpg'/ length=200px width=200px>";
-  //  var y = x.insertCell(0);
-  //  var z = x.insertCell(1);
-  //  y.innerHTML += "<img src= '../images/guy.jpg'/ length=200px width=200px>";
-  //  z.innerHTML += "<img src= '../images/guy.jpg'/ length=200px width=200px>";
-  } //insert buttons here for events, use css to style
-}
-</script>
-</head>
-
-<body>
-<p id = "myImg">
-<table id="myTable" style="border: 1px solid black">
-<tr>
-<td>obj 1</td>
-<td>obj 2</td>
-</tr>
-<tr>
-<td>obj1</td>
-<td>obj2</td>
-</tr>
-<tr>
-<td>obj1</td>
-<td>obj2</td>
-</tr>
-</table>
-
-<p>
-<input type="button" onclick="insRow('myImg')" value="Load more">
-</p>
-</p>
-
-
+<div class="user-dash-cover">
+	<div class="container">
+		<h1 align="left">Welcome, User!</h1>
+	    <div class="row first-row">
+	        <div class="col-xs-7 blocks">
+	        	<img src="../images/event.jpg" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	        <div class="col-xs-5 blocks">
+	        	<img src="../images/stats.gif" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="col-xs-4 blocks">
+	        	<img src="../images/cater.jpg" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	        <div class="col-xs-4 blocks">
+	        	<img src="../images/venue.jpg" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	        <div class="col-xs-4 blocks">
+	        	<img src="../images/dj.jpg" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	    </div>
+	    <br>
+	    <div class="row">
+	        <div class="col-xs-3 blocks">
+	        	<img src="../images/facebook_icon.png" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	        <div class="col-xs-3 blocks">
+	        	<img src="../images/twitter_icon.png" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	        <div class="col-xs-3 blocks">
+	        	<img src="../images/snapchat_icon.png" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	        <div class="col-xs-3 blocks">
+	        	<img src="../images/instagram_icon.png" class="img-responsive object-fit_fill" alt="" />
+	        </div>
+	</div>
+</div>
 {% endblock %}
