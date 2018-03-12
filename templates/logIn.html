@@ -7,67 +7,49 @@
 <br>
 
   <script type="text/javascript">
-       
-    function handleLogin() {
-      if (firebase.auth().currentUser) {
-        // [START signout]
-        firebase.auth().signOut();
-        // [END signout]
-      } else {
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-
-        // Sign in with email and pass.
-        // [START authwithemail]
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // [START_EXCLUDE]
-          if (errorCode === 'auth/wrong-password') {
-            alert('Wrong password.');
-          } else {
-            alert(errorMessage);
-          }
-          console.log(error);
-          document.getElementById('form').disabled = false;
-          // [END_EXCLUDE]
-        });
-        // [END authwithemail]
-      }
-      document.getElementById('form').disabled = true;
+  function openloginui(){
+  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  var uiConfig = {
+  callbacks: {
+    signInSuccess: function(currentUser, credential, redirectUrl) {
+      // User successfully signed in.
+      // Return type determines whether we continue the redirect automatically
+      // or whether we leave that to developer to handle.
+      return true;
+    },
+    uiShown: function() {
+      // The widget is rendered.
+      // Hide the loader.
+      document.getElementById('loader').style.display = 'none';
     }
+  },
+  // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+  signInFlow: 'popup',
+  signInSuccessUrl: '<url-to-redirect-to-on-success>',
+  signInOptions: [
+    // Leave the lines as is for the providers you want to offer your users.
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  ]};
+
+  ui.start('#firebaseui-auth-container', uiConfig);
+}
 
   </script>
 
 
+
   <center>
-    
+
     <div class = "login">
       <div class = "container-fluid" >
     <div>
       <div class = "row">
       <div class = "col-lg-12">
     <h1 class = "login-text" >LOGIN</h1>
-
-    <br><br>
-  <form id = "form" onsubmit="login()">
-
-  <center>
-      <div class="form-group">
-        <br>
-        <input id = "email" type="text" placeholder = "Email" class="form-control" style="width: 300px;">
-      </div>
-
-      <div class="form-group">
-        <br>
-        <input id = "password" type="password" placeholder = "Password" class="form-control" style="width: 300px;">
-      </div>
-  </center>
-      
-      <br>
-      <input type="submit" class="btn btn-default">
-</form>
+    <div id="firebaseui-auth-container" ></div>
 </div>
 </div>
 </div>
@@ -77,5 +59,7 @@
 
 
 </center>
+
+<body onload="openloginui()"> </body>
 
   {% endblock %}

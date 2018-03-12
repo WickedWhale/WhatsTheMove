@@ -19,11 +19,6 @@ class MainPage(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render())
 
-class SignUP(webapp2.RequestHandler):
-	def get(self):
-		template = JINJA_ENVIRONMENT.get_template('signUP.html')
-		self.response.write(template.render())
-
 class Login(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('logIn.html')
@@ -32,7 +27,7 @@ class Login(webapp2.RequestHandler):
 class UserPage(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('user.html')
-        self.response.write(template.render())       
+        self.response.write(template.render())
 
 class Post(webapp2.RequestHandler):
     def get(self):
@@ -49,12 +44,17 @@ class dashboard(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('dashboard.html')
         self.response.write(template.render())
 
+class events(webapp2.RequestHandler):
+    def get(self):
+        template = JINJA_ENVIRONMENT.get_template('eventsTable.html')
+        self.response.write(template.render())
+
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/SignUP', SignUP),
     ('/Login', Login),
     ('/User', UserPage),
     ('/Post', Post),
     ('/test', test),
+    ('/Events', events),
     ('/UserDashboard', dashboard)
 ], debug=True)
