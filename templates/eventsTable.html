@@ -19,15 +19,8 @@ function insRow(id) {
 </script>
 </head>
 
-<body>
-  <script type="text/javascript">
-  for(var i = 0; i < 15; i++) {
-    var x = document.getElementById(id);
-    x.innerHTML += "<img src= '../images/guy.jpg'/ length=200px width=200px> <br>";
-    x.innerHTML += "<input type='button'  value='Attending'>      <input type='button'  value='Not Going'> <br> <br>";
+<body onload="insRow('myImg')">
 
-  }
-  </script>
 <p id = "myImg">
 <p>
 <input type="button" onclick="insRow('myImg')" value="Load more">
